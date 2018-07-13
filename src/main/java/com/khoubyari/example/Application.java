@@ -13,6 +13,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import ch.qos.logback.classic.helpers.MDCInsertingServletFilter;
+
 /*
  * This is the main Spring Boot application class. It configures Spring Boot, JPA, Swagger
  */
@@ -36,5 +40,14 @@ public class Application extends SpringBootServletInitializer {
         return application.sources(applicationClass);
     }
     
+    @Bean
+    public FilterRegistrationBean buildMDCFilter(){
+		FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+    	registrationBean.setFilter(new MDCInsertingServletFilter());
+		registrationBean.addUrlPatterns("/*");
+        //registrationBean.setOrder(FilterRegistrationBean.LOWEST_PRECEDENCE - 1);
+
+        return registrationBean;
+    }
 
 }

@@ -12,6 +12,14 @@ spring.datasource:
 server:
   port: 8090
 
+logback.access:
+  enabled: true
+  config: "classpath:logback-access.xml"
+  useServerPortInsteadOfLocalPort: true
+  tomcat:
+    enableRequestAttributes: true
+
+
 #todo: make sure to always enable security in production
 security:
   basic:
@@ -51,7 +59,5 @@ hotel.service:
   name: 'test profile:'
   
 logging:
-  file: boot_example.log
+  file: logs/trace.log
   org.hibernate: INFO
-
- 
